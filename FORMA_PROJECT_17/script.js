@@ -25,17 +25,20 @@ form.addEventListener("submit", function(event) {
         price: Number(productPrice.value) // "100" -> 100
     }
     products.push(newProduct) // добавляем новый продукт в массив или в бд
-    clearInputs()
-    showProducts()
+    clearInputs() // вызов функции очистки полей
+    showProducts() // вызов функции отображения продуктов после добавления нового
 })
 
+// Функция очищения полей input после отправки формы 
 function clearInputs() {
     productName.value = ""
     productPrice.value = ""
 }
+
+// Функция отображения продуктов //
 function showProducts() {
-    productContainer.innerHTML = ""
-    products.forEach(function(product, index){
+    productContainer.innerHTML = "" // очищаем section перед добавлением новых продуктов
+    products.forEach(function(product, index) {
         productContainer.innerHTML += `
                 <div class="product-card">
                     <p class="product-card-name">${product.name}</p>
@@ -44,46 +47,53 @@ function showProducts() {
                 </div>
         `
     })
-    onCardHower()
-    deleteProduct()
+    onCardHover() // вызов эффекта при наведении
+    deleteProduct() // вызов функции удаления элемента
 }
-showProducts()
+showProducts() // первый вызов отображения продуктов, когда пользователь только зашел на страницу
 
-function onCardHower() {
-    const productsCards = document.querySelectorAll(".product-card")
+// функция эффекта пояления крестика при наведении
+function onCardHover() {
+    const productsCards = document.querySelectorAll(".product-card") // [{}, {}]
     productsCards.forEach(function(card) {
         card.addEventListener("mouseover", function() {
-            card.querySelector(".delete-btn").style.display = "block" //отображаем при наведении
+            card.querySelector(".delete-btn").style.display = "block" // отображаем при наведении
         })
         card.addEventListener("mouseout", function() {
-            card.querySelector(".delete-btn").style.display = "none" //скрываем при отведении
-         })
-})
-}
-
-function deleteProduct() {
-    const deleteBtns = document.querySelectorAll(".delete-btn") // [{btn}, {btn}]
-    deleteBtns.forEach(function(btn) {
-        btn.addEventListener("click", function() {
-            const currentId = btn.id
-            products.splice(currentId, 1)
-            btn.parentElement.remove()
-
-            showProducts()
+            card.querySelector(".delete-btn").style.display = "none" // скрываем при отведении
         })
     })
 }
 
+// Функция удаления продукта
+function deleteProduct() {
+    const deleteBtns = document.querySelectorAll(".delete-btn") // [{btn}, {btn}]
+    deleteBtns.forEach(function(btn) {
+        btn.addEventListener("click", function() {
+            // удалить элемент из массива products
+            const currentId = btn.id // получаем id кнопки, по которой кликнули
+            products.splice(currentId, 1) // удаляем элемент, по которому кликнули из массива
+            btn.parentElement.remove() // удаляем карточку из html
 
-products.forEach(function(product){
-    productContainer.innerHTML += `
-    <div class="product-card">
-        <p class="product-card-name">${products[i].name}</p>
-        <p class="product-card-price">${products[i].price}</p>
-    </div>
-`
-})
+            showProducts() // после удаления, опять отображаем продукты
+        })
+    })
+}
+/*
+    .parentElement - свойство, которое получает родительский элемент тега
 
+    splice(id, num)
+    Метод splice удаляет элемент из массива по индексу
+     Первым аргуемнтом принимает индекс элемента
+     Вторым аргуементом принимает количество элементов, которые нужно удалить
+
+     const names = ["Arsen", "Lana", "Vladyslav"]
+     names.splice(1, 2) // ["Arsen", "Vladyslav"]
+
+*/
+
+// mouseover - при наведении на элемент
+// mouseout -  при отведении от элемента
 
 /*
     for - низкоуровневый цикл. задаем параметры для того, чтобы пройтись циклом по массиву
@@ -102,22 +112,17 @@ products.forEach(function(product){
         3. array - это сам массив
 */
 
-/*  <div class="product-card">
+/*
+        section.innerHTML += `<div>${array[i].name}</div>`
+
+    <div class="product-card">
             <p class="product-card-name">Сноуборд</p>
             <p class="product-card-price">10000</p>
-        </div>
-        <div class="product-card">
-            <p class="product-card-name">Велосипед</p>
-            <p class="product-card-price">10000</p>
-        </div> */
+    </div>
+    <div class="product-card">
+        <p class="product-card-name">Сноуборд</p>
+        <p class="product-card-price">10000</p>
+    </div>
 
-/*
-    splice(id, num)
-    Метод splice удаляет элемент из массива по индексу
-     Первым аргуемнтом принимает индекс элемента
-     Вторым аргуементом принимает количество элементов, которые нужно удалить
-
-     const names = ["Arsen", "Lana", "Vladyslav"]
-     names.splice(1, 2) // ["Arsen", "Vladyslav"]
-
+     value - свойство input, в котором хранится введеное пользователем значение 
 */
