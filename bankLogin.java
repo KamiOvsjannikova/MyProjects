@@ -38,23 +38,41 @@ public class bankLogin {
         // nuzno vibratj variant
         WebElement answerOption = driver.findElement(By.cssSelector("[value='4']"));
         //System.out.println("[value= 'Albus Dumbledore']");
-//        sleep(5000);
+        //sleep(5000);
         answerOption.click();
-//        sleep(5000);
-        WebElement submitButton=driver.findElement(By.cssSelector("[type='submit']"));
+       // sleep(5000);
+        WebElement submitButton = driver.findElement(By.cssSelector("[type='submit']"));
         submitButton.click();
-//        sleep(5000);
+        //sleep(5000);
         assertTrue(driver.getCurrentUrl().contains("account"));
-        sleep(5000);
+        //sleep(5000);
 
         WebElement dropDownAccount = driver.findElement(By.id("accountSelect")); //#accountSelect
         dropDownAccount.click();
-//        sleep(5000);
+        sleep(5000);
         WebElement accountNumber = driver.findElement(By.cssSelector("[value='number:1011']"));
         accountNumber.click();
         WebElement transactionsButton = driver.findElement(By.cssSelector("[ng-click='transactions()']"));
         transactionsButton.click();
-//        sleep(5000);
+      sleep(5000);
         assertTrue(driver.getCurrentUrl().contains("listTx"));
+        WebElement backButton = driver.findElement(By.cssSelector("[ng-click='back()']"));
+        backButton.click();
+        sleep(5000);
+        assertTrue(driver.getCurrentUrl().contains("account"));//account
+        //sleep(5000);
+        WebElement depositButton = driver.findElement(By.cssSelector("[ng-click='deposit()']"));
+        depositButton.click();
+        sleep(5000);
+        WebElement amountInput = driver.findElement(By.className("form-control"));
+        amountInput.sendKeys("200");
+        WebElement depositSubmitButton = driver.findElement(By.cssSelector("[type='submit']"));
+        depositSubmitButton.click();
+        // WebElement amountInput=driver.findElement(By.cssSelector("[placeholder='Input your first name']"));
+        //assertEquals("Please fill out this field.",amountInput.getAttribute("validationMessage"));
+        //sleep(5000);
+        WebElement depositHeader = driver.findElement(By.className("error"));
+        assertEquals("Deposit Successful", depositHeader.getText());
+        //sleep(5000);
     }
 }
